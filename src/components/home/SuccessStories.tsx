@@ -44,9 +44,9 @@ function SuccessStories() {
       <h3 className="text-primary font-semibold text-lg sm:text-2xl md:text-lg xl:text-2xl">
           Disclaimer 
           </h3>
-       <p className="hidden md:flex text-start text-xs lg:text-sm text-black w-2/3 mb-5 lg:mb-8">" We are committed to identifying and addressing the root causes behind
+       <p className="hidden md:flex text-start text-xs lg:text-sm text-black w-2/3 mb-5 lg:mb-8">&ldquo; We are committed to identifying and addressing the root causes behind
           every symptom, We strive to provide not only relief but also knowledge
-          and preventive strategies for you to manage and improve your health "
+          and preventive strategies for you to manage and improve your health &rdquo;
         </p>
       <Image
         width={50}

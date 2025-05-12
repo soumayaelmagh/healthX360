@@ -35,7 +35,7 @@ function MeetMotaz() {
         <Reveal
           element={
             <p className="text-black-50 hidden md:flex xl:text-2xl">
-              Physiotherapist & Sports Scientist | Master’s in Healthcare & Clinical Management
+              Physiotherapist & Sports Scientist | Master&quot;s in Healthcare & Clinical Management
               (Credentials earned in Madrid; HealthX360 operates as an educational platform only)
               <br />
               Motaz translates cutting-edge research across physiology, psychology, 
@@ -108,7 +108,7 @@ function MeetMotaz() {
         ></Image>
       </div>
       <p className="my-5 text-center text-sm sm:text-base md:hidden text-black-50">
-              Physiotherapist & Sports Scientist | Master’s in Healthcare & Clinical Management
+              Physiotherapist & Sports Scientist | Master&quot;s in Healthcare & Clinical Management
               (Credentials earned in Madrid; HealthX360 operates as an educational platform only)
               <br />
               Motaz translates cutting-edge research across physiology, psychology, 
@@ -116,7 +116,7 @@ function MeetMotaz() {
               <br />
               Core Insight:
               <br />
-              "Common doesn’t mean normal. Deeper science changes perspectives."
+              &ldquo;Common doesn’t mean normal. Deeper science changes perspectives.&rdquo;
       </p>
       <div className="flex items-center gap-2 md:hidden">
         <a

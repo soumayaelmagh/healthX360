@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
       </h1>
   
         <p className="mb-4">
-          <strong>HealthX360 Solutions OÜ</strong> (“HealthX360”) respects your
+          <strong>HealthX360 Solutions OÜ</strong> (&ldquo;HealthX360&rdquo;) respects your
           privacy. This Privacy Policy explains what personal data we collect (if
           any), why we collect it, and how we use and protect it. We emphasize
           that our platform is strictly educational and not a medical or clinical
@@ -85,7 +85,7 @@ const PrivacyPolicy = () => {
         <h2 className="text-xl font-semibold mt-6 mb-2">Data Retention</h2>
         <p className="mb-4">
           We keep your data only as long as necessary. You may request deletion at
-          any time. We follow GDPR's "storage limitation" principle.
+          any time. We follow GDPR&apos;s &ldquo;storage limitation&rdquo; principle.
         </p>
   
         <h2 className="text-xl font-semibold mt-6 mb-2">Your Rights</h2>
