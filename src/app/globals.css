@@ -1,0 +1,502 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --black: rgb(7 13 9);
+  --antiflash: #f1f4f4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/*  IF DOESNT FIT CHANGE THE PT TO 20  */
+
+.page-section {
+  @apply w-full px-6 pt-24 pb-10 md:pt-32 md:px-16 lg:px-20 xl:px-24 max-w-[1700px] mx-auto overflow-hidden;
+}
+
+.primary-button {
+  @apply transition-all duration-200 px-3 py-[2px] font-medium border border-black text-black rounded-full hover:bg-black hover:text-antiflash;
+}
+
+.blue-button {
+  @apply transition-all duration-200 px-3 py-[2px] font-medium border border-secondary bg-secondary text-antiflash rounded-full hover:bg-transparent hover:text-black;
+}
+
+.alt-button {
+  @apply transition-all duration-200 px-3 py-[2px] font-medium border border-antiflash text-antiflash rounded-full hover:bg-antiflash hover:text-black;
+}
+
+.secondary-button {
+  @apply transition-all duration-200 px-3 py-[2px] font-medium border border-black bg-black text-antiflash rounded-full hover:bg-antiflash hover:text-black;
+}
+
+.primary-input {
+  @apply text-lg px-3 py-[6px] bg-black-05 rounded-full;
+}
+.cta-button {
+  @apply transition-all duration-200 px-3 py-[2px] font-medium border border-emerald-600 bg-emerald-600 text-white rounded-full hover:bg-transparent hover:text-blue-600;
+}
+/*   NAVBAR   */
+
+.burger-btn {
+  width: 100%;
+  height: 2px;
+  background-color: var(--antiflash);
+  /* position: absolute;
+  top: 6px; */
+}
+
+.burger-btn::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: var(--antiflash);
+  bottom: 6px;
+  left: 0;
+  /* transform: translateY(10px); */
+}
+
+.burger-opened {
+  transform: translateY(7px) translateX(0px) rotate(41deg);
+}
+
+.burger-opened::before {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  transform: translateY(7px) rotate(-85deg);
+}
+
+/*  HERO   */
+
+@keyframes primary-text {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+    filter: blur(4px);
+  }
+  75% {
+    transform: translateY(20px);
+    opacity: 0.2;
+    filter: blur(4px);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 100%;
+    filter: blur(0px);
+  }
+}
+
+.animate-primary-text {
+  animation: primary-text;
+  animation-duration: 0.8s;
+  animation-iteration-count: 1;
+  transform: none;
+  opacity: 100%;
+  filter: blur(0px);
+}
+
+@keyframes scale-reveal {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.scale-reveal {
+  animation: scale-reveal;
+  animation-duration: 0.8s;
+  animation-iteration-count: 1;
+  transform: scale(1);
+}
+
+@keyframes primary-button-reveal {
+  0% {
+    transform: rotateX(-90deg);
+  }
+
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+.animate-primary-button::before {
+  content: "Contact";
+  display: inline-block; /* Ensures the animation works */
+  transform-origin: bottom; /* Sets the rotation origin */
+  animation: primary-button-reveal 0.8s 1 forwards;
+}
+
+.animate-primary-book-button::before {
+  content: "Book Now";
+  display: inline-block; /* Ensures the animation works */
+  transform-origin: bottom; /* Sets the rotation origin */
+  animation: primary-button-reveal 0.8s 1 forwards;
+}
+
+/*  MISSION  */
+
+.spinning-text-gradient {
+  background: linear-gradient(90deg, #47b362 57.53%, rgba(7, 13, 9, 0.25) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes spinning-text {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-191%);
+  }
+}
+
+.spinning-text {
+  animation: spinning-text;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@media screen and (min-width: 1280px) {
+  @keyframes spinning-text {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-91%);
+    }
+  }
+  .spinning-text {
+    animation-duration: 16s;
+  }
+}
+
+/*  PATHOLOGIES UNVEILED  */
+
+.active-pathologies {
+  @apply translate-y-[45%] sm:translate-y-[70%] md:translate-y-0 md:translate-x-[95%];
+}
+
+/*  MEET MOTAZ  */
+
+@keyframes dnaOne {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(-190%) translateY(50%) rotate(170deg);
+    opacity: 100%;
+  }
+  20% {
+    transform: translateX(-380%) translateY(50%) rotate(340deg);
+    opacity: 0;
+  }
+  21% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 0;
+  }
+  30% {
+    transform: translateX(200%) translateY(100%) rotate(170deg);
+    opacity: 100%;
+  }
+  40% {
+    transform: translateX(400%) translateY(200%) rotate(340deg);
+    opacity: 0;
+  }
+  41% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(190%) translateY(-220%) rotate(170deg);
+    opacity: 100%;
+  }
+  60% {
+    transform: translateX(380%) translateY(440%) rotate(340deg);
+    opacity: 0;
+  }
+  61% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 0;
+  }
+  70% {
+    transform: translateX(-100%) translateY(200%) rotate(170deg);
+    opacity: 100%;
+  }
+  80% {
+    transform: translateX(-200%) translateY(400%) rotate(340deg);
+    opacity: 0;
+  }
+  81% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 0;
+  }
+  90% {
+    transform: translateX(-50%) translateY(250%) rotate(180deg);
+    opacity: 100%;
+  }
+  100% {
+    transform: translateX(-100%) translateY(500%) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.dna-1 {
+  animation: dnaOne 13s infinite linear;
+}
+
+@keyframes dnaTwo {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(-220%) translateY(-60%) rotate(170deg);
+    opacity: 100%;
+  }
+  20% {
+    transform: translateX(-440%) translateY(-120%) rotate(340deg);
+    opacity: 0;
+  }
+  21% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 0;
+  }
+  30% {
+    transform: translateX(135%) translateY(-250%) rotate(170deg);
+    opacity: 100%;
+  }
+  40% {
+    transform: translateX(270%) translateY(-500%) rotate(340deg);
+    opacity: 0;
+  }
+  41% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-200%) translateY(-70%) rotate(170deg);
+    opacity: 100%;
+  }
+  60% {
+    transform: translateX(-400%) translateY(-140%) rotate(340deg);
+    opacity: 0;
+  }
+  61% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 0;
+  }
+  70% {
+    transform: translateX(100%) translateY(-210%) rotate(170deg);
+    opacity: 100%;
+  }
+  80% {
+    transform: translateX(200%) translateY(-420%) rotate(340deg);
+    opacity: 0;
+  }
+  81% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 0;
+  }
+  90% {
+    transform: translateX(70%) translateY(260%) rotate(180deg);
+    opacity: 100%;
+  }
+  100% {
+    transform: translateX(140%) translateY(520%) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.dna-2 {
+  animation: dnaTwo 18s infinite linear;
+}
+
+@keyframes dnaThree {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(220%) translateY(60%) rotate(170deg);
+    opacity: 100%;
+  }
+  20% {
+    transform: translateX(440%) translateY(120%) rotate(340deg);
+    opacity: 0;
+  }
+  21% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 0;
+  }
+  30% {
+    transform: translateX(-135%) translateY(220%) rotate(170deg);
+    opacity: 100%;
+  }
+  40% {
+    transform: translateX(-270%) translateY(440%) rotate(340deg);
+    opacity: 0;
+  }
+  41% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-200%) translateY(70%) rotate(170deg);
+    opacity: 100%;
+  }
+  60% {
+    transform: translateX(-400%) translateY(140%) rotate(340deg);
+    opacity: 0;
+  }
+  61% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 0;
+  }
+  70% {
+    transform: translateX(100%) translateY(230%) rotate(170deg);
+    opacity: 100%;
+  }
+  80% {
+    transform: translateX(200%) translateY(460%) rotate(340deg);
+    opacity: 0;
+  }
+  81% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 0;
+  }
+  90% {
+    transform: translateX(70%) translateY(-210%) rotate(180deg);
+    opacity: 100%;
+  }
+  100% {
+    transform: translateX(140%) translateY(-420%) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.dna-3 {
+  animation: dnaThree 15s infinite linear;
+}
+
+/*  TESTIMONIALS  */
+
+@keyframes appear {
+  0% {
+    transform: translateY(20px);
+    opacity: 0.2;
+    filter: blur(4px);
+  }
+  70% {
+    transform: translateY(20px);
+    opacity: 0.2;
+    filter: blur(4px);
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 100%;
+    filter: blur(0px);
+  }
+}
+
+/*  CONTACT  */
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  10% {
+    transform: translateX(15px);
+  }
+  20% {
+    transform: translateX(-15px);
+  }
+  30% {
+    transform: translateX(15px);
+  }
+  40% {
+    transform: translateX(-15px);
+  }
+  50% {
+    transform: translateX(15px);
+  }
+  150% {
+    transform: translateX(-15px);
+  }
+  150% {
+    transform: translateX(15px);
+  }
+  70% {
+    transform: translateX(-15px);
+  }
+  80% {
+    transform: translateX(15px);
+  }
+  90% {
+    transform: translateX(-15px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+.animate-shake {
+  animation: shake;
+  animation-duration: 0.15s;
+  animation-iteration-count: 5;
+}
+
+/*  LOADING  */
+
+@keyframes loading {
+  0% {
+    left: 0;
+  }
+  50% {
+    right: 0;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+.loading {
+  position: absolute;
+  animation: loading 1.2s infinite;
+}
+
+/*  FRAMEWORK  */
+
+.framework-item {
+  @apply relative cursor-pointer overflow-hidden w-[40vw] h-[40vw] sm:w-full sm:h-[30vw] md:h-[25vw] lg:h-[20vw] xl:h-[16vw] max-w-[144px] max-h-[144px] sm:max-w-none sm:max-h-none rounded-lg bg-secondary p-3 lg:p-5;
+}
+
+.framework-symbols {
+  @apply absolute w-2/3 h-auto right-0 bottom-0 translate-x-[16%] translate-y-1/4 -z-0;
+}
+
+/*    ARTICLES CLIENT PAGE    */
+
+.article-item {
+  @apply cursor-pointer w-full h-full min-h-[40vw] sm:min-h-[24vw] lg:min-h-[18vw] xl:min-h-[14vw] bg-secondary p-2 md:p-3 xl:p-5 rounded-lg;
+}
+
+.flip-horizontally {
+  transform: rotateY(180deg);
+}
