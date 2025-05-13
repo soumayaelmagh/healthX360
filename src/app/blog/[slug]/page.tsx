@@ -79,8 +79,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <Image
                 src={imageUrl}
                 alt={asset.fields.description || asset.fields.title || ''}
-                width={350}
-                height={250}  
+                width={400}
+                height={200}  
                 className="object-cover object-center rounded-md shadow-md inline-block"              />
             </div>
           );
@@ -97,18 +97,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   
 
   return (
-      <section className="pt-12 md:pt-12 lg:pt-16"> 
-     <div className="bg-white py-20">
+      <section className="py-12"> 
+     <div className="bg-transparent py-20">
       <article className="container mx-auto px-4 sm:px-6 lg:px-8"> {/* Removed max-w-3xl for now, apply to content column */}
         
         {/* 1. First Cover Image (Top) */}
         {firstCoverImage?.url && (
-          <div className="mb-8 overflow-hidden rounded-xl shadow-xl text-center bg-transparent">
+          <div className="mb-8  text-center bg-transparent">
             <Image
               src={firstCoverImage.url}
               alt={firstCoverImage.alt}
-              width={350} // Can be larger, full width, or a fixed large size
-              height={250}
+              width={400} // Can be larger, full width, or a fixed large size
+              height={200}
               className="object-cover object-center rounded-md shadow-md inline-block"
               priority={true} 
             />
@@ -117,7 +117,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* 2. Post Header & Excerpt (Below first image) */}
         <header className="mb-8 max-w-3xl mx-auto"> {/* Centered header content */}
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 mb-3 text-center sm:text-left">
+          <h1 className="text-xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 mb-3 text-center sm:text-left">
             {post.title}
           </h1>
           <p className="text-base text-gray-500 text-center sm:text-left">
@@ -128,7 +128,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </header>
         
         {post.excerpt && (
-             <p className="text-xl text-gray-600 mb-12 leading-relaxed border-l-4 border-gray-200 pl-4 max-w-3xl mx-auto">
+             <p className="text-s text-gray-600 mb-12 leading-relaxed border-l-4 border-gray-200 pl-4 max-w-3xl mx-auto">
                 {post.excerpt}
              </p>
         )}
@@ -153,8 +153,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                       <Image
                         src={image.url}
                         alt={image.alt}
-                        width={350}  // Fixed width for sidebar images
-                        height={250} // Fixed height
+                        width={450}  // Fixed width for sidebar images
+                        height={450} // Fixed height
                         objectFit="cover"
                         className="w-full h-auto" // Ensure it's responsive within its 300px constrained parent
                       />

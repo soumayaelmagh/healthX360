@@ -18,15 +18,20 @@ export default async function BlogIndexPage() {
 
   return (
     // The RootLayout (app/layout.tsx) already provides Navbar, Footer, etc.
-    <main>
-    <section className="py-8 md:py-24"> {/* Using py-* for vertical padding around the content */}
-      <div className="container mx-auto px-4">
-       {/*<h1 className="text-4xl font-bold text-center mb-12">HealthX360 Blog</h1>*/} 
+    <main >
+    <section className="py-12" > {/* Using py-* for vertical padding around the content */}
+      <div className="container mx-auto px-4 pt-20" > 
+         <h1 className="text-center text-2xl md:text-5xl xl:text-7xl font-semibold mb-5 xl:mb-20">
+        <span className="text-secondary">HealthX360</span>{" "}
+        <span className="text-primary"> Blog</span>
+      </h1>
         {allPostsData.length > 0 ? (
+          
           <ul className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {allPostsData.map(({ slug, date, title, excerpt, coverImage }) => (
               <li key={slug} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
                 {coverImage?.url && (
+                 
                   <div className="relative w-full h-48">
                     <Image
                       src={coverImage.url}
@@ -36,13 +41,13 @@ export default async function BlogIndexPage() {
                     />
                   </div>
                 )}
+                 <Link href={`/blog/${slug}`} passHref>
                 <div className="p-6">
                   <h2 className="text-2xl font-semibold mb-2">
-                    <Link href={`/blog/${slug}`} passHref>
-                      <span className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer">
+                   
+                      <span className="text-green-600 hover:text-green-600 hover:underline cursor-pointer">
                         {title}
                       </span>
-                    </Link>
                   </h2>
                   <small className="text-gray-500 mb-3 block">
                     {new Date(date).toLocaleDateString('en-US', {
@@ -53,6 +58,7 @@ export default async function BlogIndexPage() {
                   </small>
                   <p className="text-gray-700 text-sm leading-relaxed">{excerpt}</p>
                 </div>
+                </Link>
               </li>
             ))}
           </ul>
