@@ -37,7 +37,7 @@ function Footer() {
             duration={500}
             className="cursor-pointer"
           >
-            Health educator
+            Our health educator
           </ReactScroll.Link>
         </div>
 
@@ -53,7 +53,7 @@ function Footer() {
         <div className="flex flex-col gap-3 text-black font-medium text-sm md:text-base xl:text-xl">
           <h2 className="font-semibold text-lg mb-2">Contact</h2>
           <div className="flex items-center gap-2">
-            <FaWhatsapp style={{ fontSize: "120%" }} /> 0034 601061452
+            <FaWhatsapp style={{ fontSize: "120%" }} /> +34 601061452
           </div>
           <div className="flex items-center gap-2">
             <IoMdMail style={{ fontSize: "120%" }} /> Director@healthX360.com

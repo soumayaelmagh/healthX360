@@ -16,28 +16,39 @@ function MeetMotaz() {
       style={{ paddingTop: "14rem" }}
       id="consultant"
     >
-      <h1 className="mb-8 text-center text-2xl md:hidden font-semibold">
-      Meet Motaz, Our Holistic Health Educator
-      Founder of HealthX360
-
+      <h1 className="mb-8 text-center text-xl md:hidden font-semibold">
+     Meet Motaz, Our Health Educator
       </h1>
+        <h2 className="mb-8 text-center text-l md:hidden font-semibold">
+    Physiotherapist & Sports Scientist | Master’s in Healthcare & Clinical Management
+      </h2>
       <article className="hidden md:flex md:flex-col w-2/3">
         <Reveal
           element={
-            <h1 className="mb-5 text-3xl xl:text-7xl hidden md:flex font-semibold">
-             Meet Motaz, Our Holistic Health Educator
-             Founder of HealthX360
- 
+            <h1 className="mb-5 text-xl xl:text-5xl hidden md:flex font-semibold">
+              Meet Motaz, Our Health Educator
             </h1>
+            
           }
         />
-
+          <Reveal
+          element={
+            <h2 className="mb-5 text-xl xl:text-xl hidden md:flex font-semibold">
+            Physiotherapist & Sports Scientist | Master’s in Healthcare & Clinical Management           
+             </h2>
+            
+          }
+        />
         <Reveal
           element={
-            <p className="text-black-50 hidden md:flex xl:text-2xl">
-              Physiotherapist & Sports Scientist | Master&quot;s in Healthcare & Clinical Management
+            <p className="text-black-50 hidden md:flex xl:text-xl">
               (Credentials earned in Madrid; HealthX360 operates as an educational platform only)
-              <br />
+            </p>
+          }
+        />
+         <Reveal
+          element={
+            <p className="text-black-50 hidden md:flex xl:text-xl">
               Motaz translates cutting-edge research across physiology, psychology, 
               and spiritual well-being—revealing how these systems interconnect in persistent health challenges.
             </p>

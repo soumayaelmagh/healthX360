@@ -45,9 +45,9 @@ function Hero() {
   }, []);
 
   return (
-    <section className="page-section relative w-full h-screen flex flex-col gap-4 md:justify-center items-center md:items-start  overflow-hidden text-center">
+    <section className="page-section relative w-full h-[70vh] flex flex-col gap-4 md:justify-center items-center md:items-start  overflow-hidden text-center">
       <div
-        className="w-full h-[60vh] relative py-5 px-4 md:p-8 bg-secondary backdrop-blur-sm rounded-md mt-3 overflow-hidden"
+        className="w-full h-[30vh] relative py-5 px-4 md:p-8 bg-secondary backdrop-blur-sm rounded-md mt-3 overflow-hidden"
         ref={featuresRef}
       >
         <Image
@@ -63,14 +63,13 @@ function Hero() {
           alt="a man smiling at his phone"
           src={guy}
           className="w-2/3 max-w-52 absolute h-auto right-0 bottom-0"
-        ></Image> <h1 className="text-antiflash font-medium text-base sm:text-2xl md:text-4xl lg:text-5xl lg:w-5/6  mb-2 lg:mb-4 md:text-start">
-        HealthX360 is a global educational platform explaining the science behind pain.
+        ></Image> <h1 className="text-antiflash font-medium text-base sm:text-l md:text-l lg:text-3xl lg:w-6/6  mb-2 lg:mb-4 md:text-start">
+        HealthX360 is a global educational platform explaining the science behind pain
         </h1>
        
-        <p className="hidden md:flex text-start text-m lg:text-sm text-white w-2/3 mb-5 lg:mb-8">
-          We translate complex research on physiology, psychology and spiritual well-being into simple lifestyle frameworks - decoding pain holistically to reveal overlooked patterns and new perspectives. We are committed to identifying and addressing the root causes behind
-          every symptom, We strive to provide not only relief but also knowledge
-          and preventive strategies for you to manage and improve your health
+        <p className="hidden md:flex text-start text-m lg:text-m text-white w-3/3 mb-5 lg:mb-8">
+         We translate complex research on physiology, psychology and spiritual well-being into simple lifestyle frameworks
+
         </p>
         <div className="w-full md:w-fit justify-center flex items-center gap-4 text-antiflash ">
          
@@ -87,7 +86,7 @@ function Hero() {
         className="text-xl md:text-3xl xl:text-4xl font-semibold mt-5 md:mt-0 xl:leading-[60px] transition-all duration-200 opacity-0 md:text-start"
         ref={titleRef}
       >
-        Research-Built Platform for Pain Understanding
+       Helping people understand pain, holistically through research
       </h1>
       <div className="w-full md:w-fit h-auto flex items-center gap-2 md:gap-4 justify-between">
         <a
@@ -103,7 +102,7 @@ function Hero() {
           duration={500}
           className="primary-button text-lg md:text-xl xl:text-2xl cursor-pointer"
         >
-          Our consultant
+          Our expert
         </ReactScroll.Link>
       </div>
     </section>

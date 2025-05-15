@@ -61,7 +61,7 @@ const PrivacyPolicy = () => {
             Cookies are first-party and non-identifying.
           </li>
           <li>
-            <strong>Calendly:</strong> Used for booking. Name/email you enter is
+            <strong>YouCanBookMe:</strong> Used for booking. Name/email you enter is
             collected on our behalf. Calendly sets its own functional cookies.
           </li>
           <li>

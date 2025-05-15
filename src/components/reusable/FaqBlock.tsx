@@ -3,20 +3,20 @@
 import { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
-type faq = {
+type FaqProps = {
   question: string;
-  answer: string;
+  answer: React.ReactNode; // <--- MODIFIED: Changed from string to React.ReactNode
   isOpened?: boolean;
 };
 
-function FaqBlock(props: faq) {
-  const [isOpened, setIsOpened] = useState<boolean>(false);
+function FaqBlock(props: FaqProps) { // Use the updated FaqProps type
+  const [isOpened, setIsOpened] = useState<boolean>(!!props.isOpened);
 
   useEffect(() => {
-    if (props.isOpened) {
+    if (props.isOpened !== undefined) {
       setIsOpened(props.isOpened);
     }
-  }, []);
+  }, [props.isOpened]);
 
   return (
     <li className="w-full flex flex-col-reverse drop-shadow-lg rounded-md">
@@ -25,9 +25,9 @@ function FaqBlock(props: faq) {
           isOpened ? "h-auto pb-2 pt-3" : "h-0 py-0"
         }`}
       >
-        <p className="text-black opacity-60 text-xs md:text-sm xl:text-base">
+        <div className="text-black opacity-60 text-xs md:text-sm xl:text-base">
           {props.answer}
-        </p>
+        </div>
       </div>
       <div
         className={`px-4 py-2 md:py-3 md:px-6 w-full bg-antiflash border border-black flex justify-between items-center transition-all duration-300 z-30 ${

@@ -51,14 +51,15 @@ function Pathologies() {
           className="absolute top-8 sm:top-8 md:top-16 w-fit left-1/2 -translate-x-1/2 md:left-28 xl:left-36 xl:top-24 md:translate-x-0 scale-110 xl:scale-125 transition-all duration-300 opacity-0"
           ref={counterRef}
         >
-          <Counter label="Patterns Decoded" value={40} delay={1500} />
+          <Counter label="Root causes explained" value={40} delay={1500} />
         </div>
         <div
           className="relative w-[90%] sm:w-1/2 mx-auto md:mx-0 h-auto flex flex-col items-center gap-3 xl:gap-5 p-3 xl:p-6 bg-black-05 backdrop-blur-sm my-5 rounded-lg text-center md:text-start md:items-start transition-all duration-700"
           ref={pathologiesRef}
         >
           <h1 className="text-black text-2xl lg:text-3xl xl:text-4xl font-semibold">
-          Chronic complexity, clarified through research
+          Research-driven clarity,      <br />
+           clarified through research
           </h1>
           <p className="text-black-75 text-sm lg:text-base xl:text-lg">
           HealthX360 examines the interconnected science behind persistent health challenges—revealing how physical, psychological, and spiritual factors interact in peer-reviewed frameworks
@@ -84,19 +85,19 @@ function Pathologies() {
             <span className="text-3xl w-8 h-8 border border-black rounded-full flex items-center justify-center">
               +
             </span>{" "}
-            Mind Patterns 
+            Mental Health
           </li>
           <li className="flex items-center gap-2 font-medium">
             <span className="text-3xl w-8 h-8 border border-black rounded-full flex items-center justify-center">
               +
             </span>{" "}
-            Body Systems
+            Physical Health
           </li>
           <li className="flex items-center gap-2 font-medium">
             <span className="text-3xl w-8 h-8 border border-black rounded-full flex items-center justify-center">
               +
             </span>{" "}
-            Spiritual Dynamics
+            Spiritual Well-being
           </li>
         </ul>
       </div>

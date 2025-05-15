@@ -31,7 +31,7 @@ function Navbar() {
 
   return (
     <>
-      <header className="fixed bg-secondary md:bg-transparent bg-opacity-50 w-full px-5 py-5 md:px-10 md:py-6 xl:px-16 xl:py-8 flex justify-between items-center z-[999] overflow-hidden">
+      <header className="fixed bg-white w-full px-5 py-5 md:px-10 md:py-6 xl:px-16 xl:py-8 flex justify-between items-center z-[999] overflow-hidden">
         <Link
           href="/"
           className="text-black text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold"

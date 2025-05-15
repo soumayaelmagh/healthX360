@@ -18,7 +18,7 @@ function Framework() {
           >
             <Image
               width={30}
-              height={30}
+              height={28}
               alt="DNA symbol"
               src={img27}
               className="framework-symbols"
@@ -36,7 +36,7 @@ function Framework() {
           >
             <Image
               width={30}
-              height={30}
+              height={28}
               alt="DNA symbol"
               src={img27}
               className="framework-symbols"
@@ -53,18 +53,26 @@ function Framework() {
             href="https://drive.google.com/file/d/1aORxrDR4BxadXA7VuMXbUmYjJAdr7miV/view?usp=sharing"
           >
             <Image
-              width={30}
-              height={30}
+              width={27}
+              height={26}
               alt="DNA symbol"
               src={img27}
               className="framework-symbols"
             ></Image>
             <h1 className="font-semibold text-base lg:text-2xl xl:text-3xl text-antiflash">
-            Multimodal Health Dynamics
+            Multimodal <br /> Health  
+            Dynamics
             </h1>
           </a>
         </li>
       </ul>
+      <div className="text-center  pt-24">
+      <h3 className="text-primary font-semibold text-lg sm:text-2xl md:text-lg xl:text-2xl">
+          Disclaimer 
+          </h3>
+       <p className="hidden md:flex text-center text-s lg:text-l text-black w-3/3 mb-5 lg:mb-8">&ldquo;HealthX360 is a European-based educational platform founded by a Spanish health professional with expertise in chronic pain and complex cases. Due to international regulations and varying medical licensing requirements, HealthX360 does not provide medical advice, diagnosis, or treatment. All information shared is for educational purposes only. Please consult a licensed healthcare provider in your country before making any health-related decisions &rdquo;
+        </p>
+        </div>
     </section>
   );
 }

@@ -5,7 +5,7 @@ function SuccessStories() {
   return (
     <section className="w-full h-auto min-h-screen relative page-section sec-container flex flex-col items-center gap-5 md:gap-10 text-center">
       <h1 className="text-center text-3xl md:text-5xl xl:text-7xl font-semibold">
-      Frameworks in Action
+      Our framework in action
       </h1>
       <ul className="w-full h-[60vh] md:h-auto relative  px-4 lg:px-8 text-start flex md:flex-wrap lg:flex-nowrap items-center md:justify-center gap-2 lg:gap-4 overflow-x-auto md:overflow-x-hidden">
         <li className="w-[80vw] sm:w-[60vw] md:w-[45%] h-[90%] md:h-3/4 lg:h-[50vh] xl:max-h-[400px] xl:max-w-[300px] bg-antiflash shadow-lg rounded-lg relative flex flex-col items-center text-center gap-3 flex-shrink-0 md:flex-shrink border-2 border-opacity-15 border-black px-3 py-5 ">
@@ -41,13 +41,7 @@ function SuccessStories() {
           </p>
         </li>
       </ul>
-      <h3 className="text-primary font-semibold text-lg sm:text-2xl md:text-lg xl:text-2xl">
-          Disclaimer 
-          </h3>
-       <p className="hidden md:flex text-start text-xs lg:text-sm text-black w-2/3 mb-5 lg:mb-8">&ldquo; We are committed to identifying and addressing the root causes behind
-          every symptom, We strive to provide not only relief but also knowledge
-          and preventive strategies for you to manage and improve your health &rdquo;
-        </p>
+      
       <Image
         width={50}
         height={50}

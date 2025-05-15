@@ -5,8 +5,8 @@ function CTA() {
   return (
     <section className="w-full h-screen sec-container page-section bg-secondary flex flex-col items-center justify-center text-center gap-6">
       <h3 className="text-2xl md:text-3xl xl:text-5xl font-semibold text-white">
-      HealthX360 decodes the science behind persistent pain. <br />
-      Explore evidence-based frameworks that reveal overlooked connections in health science—and discover new ways to understand complex patterns.
+      Dive into in-depth knowledge that uncovers overlooked connections in health science—empowering you to grasp complex health concepts
+
       </h3>
       <div className="flex items-center gap-2">
         <a
