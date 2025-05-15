@@ -23,7 +23,7 @@ function Faq() {
           question="What’s the full process from visiting the website to having a session?"
           answer={<ol style={{ paddingLeft: '20px' }}> {/* Optional: add some padding for list styling */}
       <li>
-        <strong>Initial Experience:</strong> You come to us with pain and confusion, unsure of what's going on, maybe feeling frustrated after a lack of answers.
+        <strong>Initial Experience:</strong> You come to us with pain and confusion, unsure of what&apos;s going on, maybe feeling frustrated after a lack of answers.
       </li>
       <li>
         <strong>Exploration:</strong> You visit our website and something feels different, but you still have doubts.
