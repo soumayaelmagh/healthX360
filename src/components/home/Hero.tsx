@@ -45,9 +45,9 @@ function Hero() {
   }, []);
 
   return (
-    <section className="page-section relative w-full h-[70vh] flex flex-col gap-4 md:justify-center items-center md:items-start  overflow-hidden text-center">
+    <section className="page-section relative w-full min-h-fit flex flex-col gap-4 md:justify-center items-center md:items-start  overflow-hidden text-center">
  <div
-  className="w-full h-[30vh] relative
+  className="w-full h-[45vh] relative
              pt-5 pl-4 pr-0 pb-0            
              md:pt-8 md:pl-8 md:pr-0 md:pb-0    
              bg-secondary backdrop-blur-sm rounded-md mt-3 overflow-hidden flex" 
@@ -60,7 +60,7 @@ function Hero() {
                  h-full flex flex-col justify-center 
                  pb-5 md:pb-8  
                  ">
-    <h1 className="text-antiflash font-medium text-base sm:text-lg md:text-xl lg:text-3xl md:text-start">
+    <h1 className="text-antiflash font-medium text-base sm:text-lg md:text-xl lg:text-3xl md:text-start ">
       HealthX360 is a global educational platform explaining the science behind pain
     </h1>
     <p className="hidden md:block text-start text-xs sm:text-sm lg:text-base text-white">
@@ -76,29 +76,33 @@ function Hero() {
       </a>
     </div>
   </div>
+<div className="relative w-full max-w-xs sm:max-w-sm md:w-[45%] lg:w-[40%] h-full flex-shrink-0 order-1 md:order-2 mt-auto">
 
-  <div  className="relative w-[35%] sm:w-[40%] md:w-[45%] lg:w-[40%] h-full flex-shrink-0">
-    <div className="absolute inset-0 z-[1] opacity-70 md:opacity-100">
-      <Image
-        alt="Decorative background blobs"
-        src={logoShadow} 
-        fill
-        className="object-contain object-center" 
-        sizes="(max-width: 768px) 30vw, 25vw"
-      />
-    </div>
-
-    {/* Guy Image */}
-    <div className="relative w-full h-full z-[2]">
-      <Image
-        alt="a man smiling at his phone"
-        src={guy}
-        fill
-        className="object-contain object-bottom-right" 
-        sizes="(max-width: 768px) 35vw, 30vw"
-      />
-    </div>
+  <div className="absolute inset-0 z-[1] opacity-70 md:opacity-100">
+   
+    <Image
+      alt="Decorative background blobs"
+      src={logoShadow} 
+      fill
+      className="object-contain object-center"
+      sizes="(max-width: 768px) 30vw, 25vw"
+      priority={true} 
+    />
   </div>
+
+  {/* Guy Image - Layer 2 */}
+  <div className="absolute inset-0 z-[2]">
+   
+    <Image
+      alt="a man smiling at his phone"
+      src={guy} 
+      fill
+      className="object-contain object-bottom-right"
+      sizes="(max-width: 768px) 35vw, 30vw"
+      priority={true} 
+    />
+  </div>
+</div>
 </div>
       <h1
         className="text-xl md:text-3xl xl:text-4xl font-semibold mt-5 md:mt-0 xl:leading-[60px] transition-all duration-200 opacity-0 md:text-start"
