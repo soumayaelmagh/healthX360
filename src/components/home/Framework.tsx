@@ -5,7 +5,7 @@ import Image from "next/image";
 
 function Framework() {
   return (
-    <section className="w-full h-screen page-section gap-5">
+    <section className="w-full min-h-fit page-section gap-5">
       <h1 className="text-center text-2xl md:text-5xl xl:text-7xl font-semibold mb-5 xl:mb-20">
       Peer-Reviewed Frameworks
       </h1>
@@ -66,13 +66,17 @@ function Framework() {
           </a>
         </li>
       </ul>
-      <div className="text-center  pt-24">
-      <h3 className="text-primary font-semibold text-lg sm:text-2xl md:text-lg xl:text-2xl">
-          Disclaimer 
-          </h3>
-       <p className="hidden md:flex text-center text-s lg:text-l text-black w-3/3 mb-5 lg:mb-8">&ldquo;HealthX360 is a European-based educational platform founded by a Spanish health professional with expertise in chronic pain and complex cases. Due to international regulations and varying medical licensing requirements, HealthX360 does not provide medical advice, diagnosis, or treatment. All information shared is for educational purposes only. Please consult a licensed healthcare provider in your country before making any health-related decisions &rdquo;
-        </p>
-        </div>
+     <div className="text-center pt-12 sm:pt-16 md:pt-20 lg:pt-24"> {/* Adjusted padding-top for responsiveness */}
+  <h3 className="text-primary font-semibold text-lg sm:text-2xl md:text-lg xl:text-2xl">
+    Disclaimer
+  </h3>
+  <p className="block md:flex text-center text-xs sm:text-sm lg:text-base text-black w-full mb-5 lg:mb-8 px-2 sm:px-0">
+    “HealthX360 is a European-based educational platform founded by a Spanish health professional with expertise in chronic pain and complex cases.
+     Due to international regulations and varying medical licensing requirements, 
+     HealthX360 does not provide medical advice, diagnosis, or treatment. 
+     All information shared is for educational purposes only. Please consult a licensed healthcare provider in your country before making any health-related decisions ”
+  </p>
+</div>
     </section>
   );
 }

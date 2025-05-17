@@ -23,7 +23,7 @@ export default async function BlogIndexPage() {
       <div className="container mx-auto px-4 pt-20" > 
          <h1 className="text-center text-2xl md:text-5xl xl:text-7xl font-semibold mb-5 xl:mb-20">
         <span className="text-secondary">HealthX360</span>{" "}
-        <span className="text-primary"> Blog</span>
+        <span className="text-primary"> Insight</span>
       </h1>
         {allPostsData.length > 0 ? (
           

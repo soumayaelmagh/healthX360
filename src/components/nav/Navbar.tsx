@@ -57,7 +57,7 @@ function Navbar() {
           <Link href="/podcast">Deep dive</Link>
           <Link href="/religion-and-science">Religion and science</Link>
           <Link href="/evaluation">Virtual check</Link>
-          <Link href="/blog">Blog</Link>
+          <Link href="/blog">Insight</Link>
           {/* <ReactScroll.Link
             smooth={true}
             to="consultant"

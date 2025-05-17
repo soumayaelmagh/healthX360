@@ -12,7 +12,7 @@ import { FaWhatsapp } from "react-icons/fa";
 function MeetMotaz() {
   return (
     <section
-      className="page-section w-full h-auto min-h-screen bg-antiflash flex flex-col md:flex-row md:justify-around items-center md:items-start md:gap-5"
+      className="page-section w-full h-auto min-h-fit bg-antiflash flex flex-col md:flex-row md:justify-around items-center md:items-start md:gap-5"
       style={{ paddingTop: "14rem" }}
       id="consultant"
     >

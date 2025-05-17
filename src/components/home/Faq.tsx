@@ -4,7 +4,7 @@ import FaqBlock from "../reusable/FaqBlock";
 
 function Faq() {
   return (
-    <section className="relative w-full h-auto min-h-screen page-section overflow-hidden">
+    <section className="relative w-full h-auto min-h-fit page-section overflow-hidden">
       <h1 className="text-center text-3xl md:text-5xl xl:text-7xl font-semibold mb-5 md:mb-9 lg:mb-12 xl:mb-20">
         FAQ&apos;s
       </h1>

@@ -25,7 +25,7 @@ function Hero() {
       setIsCopied(false); // Reset state after 2 seconds
     }, 2000);
   };
-
+  
   useEffect(() => {
     titleRef.current?.classList.add("animate-primary-text");
     setTimeout(() => {
@@ -46,42 +46,60 @@ function Hero() {
 
   return (
     <section className="page-section relative w-full h-[70vh] flex flex-col gap-4 md:justify-center items-center md:items-start  overflow-hidden text-center">
-      <div
-        className="w-full h-[30vh] relative py-5 px-4 md:p-8 bg-secondary backdrop-blur-sm rounded-md mt-3 overflow-hidden"
-        ref={featuresRef}
+ <div
+  className="w-full h-[30vh] relative
+             pt-5 pl-4 pr-0 pb-0            
+             md:pt-8 md:pl-8 md:pr-0 md:pb-0    
+             bg-secondary backdrop-blur-sm rounded-md mt-3 overflow-hidden flex" 
+  ref={featuresRef}
+>
+ 
+  <div className="flex-1 space-y-2 md:space-y-3 lg:space-y-4
+                 pr-2 md:pr-4 lg:pr-6 xl:pr-8
+                 max-w-[65%] sm:max-w-[60%] md:max-w-[55%] lg:max-w-[60%]
+                 h-full flex flex-col justify-center 
+                 pb-5 md:pb-8  
+                 ">
+    <h1 className="text-antiflash font-medium text-base sm:text-lg md:text-xl lg:text-3xl md:text-start">
+      HealthX360 is a global educational platform explaining the science behind pain
+    </h1>
+    <p className="hidden md:block text-start text-xs sm:text-sm lg:text-base text-white">
+      We translate complex research on physiology, psychology and spiritual well-being into simple lifestyle frameworks
+    </p>
+    <div className="w-full md:w-fit flex items-center gap-4 text-antiflash ">
+      <a
+        target="_blank"
+        href="https://wa.me/34601061452"
+        className="p-[6px] md:p-2 bg-primary rounded-full transition-all duration-1000"
       >
-        <Image
-          width={50}
-          height={50}
-          alt="logo"
-          src={logoShadow}
-          className="w-full max-w-72 translate-x-[15%] absolute h-auto right-0 bottom-0"
-        ></Image>
-        <Image
-          width={50}
-          height={50}
-          alt="a man smiling at his phone"
-          src={guy}
-          className="w-2/3 max-w-52 absolute h-auto right-0 bottom-0"
-        ></Image> <h1 className="text-antiflash font-medium text-base sm:text-l md:text-l lg:text-3xl lg:w-6/6  mb-2 lg:mb-4 md:text-start">
-        HealthX360 is a global educational platform explaining the science behind pain
-        </h1>
-       
-        <p className="hidden md:flex text-start text-m lg:text-m text-white w-3/3 mb-5 lg:mb-8">
-         We translate complex research on physiology, psychology and spiritual well-being into simple lifestyle frameworks
+        <FaWhatsapp className="text-xl md:text-3xl" />
+      </a>
+    </div>
+  </div>
 
-        </p>
-        <div className="w-full md:w-fit justify-center flex items-center gap-4 text-antiflash ">
-         
-          <a
-            target="_blank"
-            href="https://wa.me/34601061452"
-            className="p-[6px] md:p-2 bg-primary rounded-full transition-all duration-1000"
-          >
-            <FaWhatsapp className="text-xl md:text-3xl" />
-          </a>
-        </div>
-      </div>
+  <div  className="relative w-[35%] sm:w-[40%] md:w-[45%] lg:w-[40%] h-full flex-shrink-0">
+    <div className="absolute inset-0 z-[1] opacity-70 md:opacity-100">
+      <Image
+        alt="Decorative background blobs"
+        src={logoShadow} 
+        fill
+        className="object-contain object-center" 
+        sizes="(max-width: 768px) 30vw, 25vw"
+      />
+    </div>
+
+    {/* Guy Image */}
+    <div className="relative w-full h-full z-[2]">
+      <Image
+        alt="a man smiling at his phone"
+        src={guy}
+        fill
+        className="object-contain object-bottom-right" 
+        sizes="(max-width: 768px) 35vw, 30vw"
+      />
+    </div>
+  </div>
+</div>
       <h1
         className="text-xl md:text-3xl xl:text-4xl font-semibold mt-5 md:mt-0 xl:leading-[60px] transition-all duration-200 opacity-0 md:text-start"
         ref={titleRef}

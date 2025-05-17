@@ -4,7 +4,7 @@ import ProgressBar from "../reusable/Progress";
 
 function OurMission() {
   return (
-    <section className="page-section w-full h-auto min-h-screen text-center overflow-x-hidden" id="mission">
+    <section className="page-section w-full h-auto min-h-fit text-center overflow-x-hidden" id="mission">
       <div className="relative w-full flex gap-10 px-5 spinning-text mb-16 text-black">
         <h1 className="relative  whitespace-nowrap w-auto text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium ">
         Bringing order /{" "}
@@ -12,11 +12,11 @@ function OurMission() {
         </h1>
         <h1 className="relative whitespace-nowrap w-auto text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium">
           Bringing order /{" "}
-          <span className="spinning-text-gradient">Reducing Suffering</span>
+          <span className="spinning-text-gradient">Decoding Complexity</span>
         </h1>
         <h1 className="relative hidden xl:flex whitespace-nowrap w-auto xl:text-7xl font-medium">
           Bringing order /{" "}
-          <span className="spinning-text-gradient">Reducing Suffering</span>
+          <span className="spinning-text-gradient">Decoding Complexity</span>
         </h1>
       </div>
       <Reveal

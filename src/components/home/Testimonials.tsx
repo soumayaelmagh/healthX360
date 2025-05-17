@@ -48,7 +48,7 @@ function Testimonials() {
   };
 
   return (
-    <section className="page-section w-full h-screen flex flex-col items-center bg-antiflash">
+    <section className="page-section w-full min-h-fit flex flex-col items-center bg-antiflash">
       <h1 className="text-center text-3xl md:text-5xl xl:text-7xl font-semibold mb-5">
       What People Say About HealthX360
       </h1>

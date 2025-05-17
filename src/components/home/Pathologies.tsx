@@ -1,39 +1,25 @@
 "use client";
 
-import { useInView, useAnimation, motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+//import { useInView, useAnimation, motion } from "framer-motion";
+import {  useRef } from "react";
 import Counter from "../reusable/Counter";
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 
 function Pathologies() {
-  // SCROLL TRIGGER ANIMATION
-
-  const pathologiesRef = useRef<any>(null);
-  const sectionRef = useRef<any>(null);
+  const divStyle = {
+    marginLeft: '700px', 
+  };
   const counterRef = useRef<any>(null);
-  const isInView = useInView(pathologiesRef, { once: true });
+  
 
-  useEffect(() => {
-    if (isInView) {
-      setTimeout(() => {
-        sectionRef.current?.classList.add("scale-reveal");
-        setTimeout(() => {
-          pathologiesRef.current?.classList.add("active-pathologies");
-          setTimeout(() => {
-            counterRef.current?.classList.remove("opacity-0");
-          }, 200);
-        }, 500);
-      }, 400);
-    }
-  }, [isInView]);
 
   return (
     // PATHOLOGIES SWING
     <section className="relative page-section h-screen flex items-center justify-center">
       <div
-        className="relative w-full h-full rounded-lg overflow-hidden max-h-[750px] scale-0"
-        ref={sectionRef}
+        className="relative w-full h-full rounded-lg overflow-hidden max-h-[90vh] "
+        
       >
         <video
           width="100%"
@@ -47,22 +33,21 @@ function Pathologies() {
           <source src="/videos/path.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div
-          className="absolute top-8 sm:top-8 md:top-16 w-fit left-1/2 -translate-x-1/2 md:left-28 xl:left-36 xl:top-24 md:translate-x-0 scale-110 xl:scale-125 transition-all duration-300 opacity-0"
-          ref={counterRef}
+       <div
+          className="absolute top-8 sm:top-8 md:top-16 w-fit left-1/2 -translate-x-1/2 md:left-28 xl:left-36 xl:top-24 md:translate-x-0 scale-110 xl:scale-125"
         >
-          <Counter label="Root causes explained" value={40} delay={1500} />
+          <Counter label="Root causes explained" value={40} delay={0} />
         </div>
-        <div
-          className="relative w-[90%] sm:w-1/2 mx-auto md:mx-0 h-auto flex flex-col items-center gap-3 xl:gap-5 p-3 xl:p-6 bg-black-05 backdrop-blur-sm my-5 rounded-lg text-center md:text-start md:items-start transition-all duration-700"
-          ref={pathologiesRef}
+
+       <div style={divStyle}
+          className="relative w-[90%] sm:w-1/2 mx-auto md:mx-0 h-auto flex flex-col items-center gap-3 xl:gap-5 p-3 xl:p-6 bg-black-05 backdrop-blur-sm my-5 rounded-lg text-center md:text-start md:items-start"
         >
-          <h1 className="text-black text-2xl lg:text-3xl xl:text-4xl font-semibold">
-          Research-driven clarity,      <br />
-           clarified through research
+          <h1 className="text-black text-2xl lg:text-3xl xl:text-4xl  font-semibold">
+            Research-driven clarity, <br />
+            on chronic complexity
           </h1>
           <p className="text-black-75 text-sm lg:text-base xl:text-lg">
-          HealthX360 examines the interconnected science behind persistent health challenges—revealing how physical, psychological, and spiritual factors interact in peer-reviewed frameworks
+            HealthX360 examines the interconnected science behind persistent health challenges—revealing how physical, psychological, and spiritual factors interact in peer-reviewed frameworks
           </p>
           <div className="flex items-center gap-2">
             <Link

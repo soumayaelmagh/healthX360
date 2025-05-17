@@ -99,10 +99,10 @@ function Evaluation() {
             href="/evaluation/the-pain-management-confidence"
           >
             <Image
-              width={30}
-              height={30}
+              width={23}
+              height={23}
               alt="DNA symbol"
-              src={img22}
+              src={img38}
               className="framework-symbols"
             ></Image>
             <h1 className="font-semibold text-sm sm:text-base lg:text-2xl xl:text-3xl text-antiflash">
