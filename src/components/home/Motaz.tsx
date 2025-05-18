@@ -12,8 +12,8 @@ import { FaWhatsapp } from "react-icons/fa";
 function MeetMotaz() {
   return (
     <section
-      className="page-section w-full h-auto min-h-fit bg-antiflash flex flex-col md:flex-row md:justify-around items-center md:items-start md:gap-5"
-      style={{ paddingTop: "14rem" }}
+      className="page-section w-full  min-h-fit bg-antiflash flex flex-col md:flex-row md:justify-around items-center md:items-start md:gap-5"
+     
       id="consultant"
     >
       <h1 className="mb-8 text-center text-xl md:hidden font-semibold">

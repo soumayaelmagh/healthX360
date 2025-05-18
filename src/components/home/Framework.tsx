@@ -20,12 +20,14 @@ function Framework() {
               width={30}
               height={28}
               alt="DNA symbol"
-              src={img27}
+              src={img38}
               className="framework-symbols"
             ></Image>
+            <div className="pr-8">
             <h1 className="font-semibold text-base lg:text-2xl xl:text-3xl text-antiflash">
             Holistic System Interactions
             </h1>
+            </div>
           </a>
         </li>
         <li className="framework-item">
@@ -35,13 +37,13 @@ function Framework() {
             href="https://drive.google.com/file/d/11oc5aOzrqfWitgVxV54CsEvweu-ykFot/view?usp=sharing"
           >
             <Image
-              width={30}
-              height={28}
+              width={27}
+              height={27}
               alt="DNA symbol"
-              src={img27}
+              src={img38}
               className="framework-symbols"
             ></Image>
-            <h1 className="font-semibold text-base lg:text-2xl xl:text-3xl text-antiflash">
+            <h1 className="font-semibold text-base  lg:text-2xl xl:text-3xl text-antiflash">
             Integrated Pain Research
             </h1>
           </a>
@@ -56,13 +58,15 @@ function Framework() {
               width={27}
               height={26}
               alt="DNA symbol"
-              src={img27}
+              src={img38}
               className="framework-symbols"
             ></Image>
+            <div className="pr-12">
             <h1 className="font-semibold text-base lg:text-2xl xl:text-3xl text-antiflash">
-            Multimodal <br /> Health  
+            Multimodal  Health  <br />
             Dynamics
             </h1>
+            </div>
           </a>
         </li>
       </ul>

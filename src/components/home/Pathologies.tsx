@@ -13,7 +13,7 @@ function Pathologies() {
 
   return (
     // PATHOLOGIES SWING
-    <section className="relative page-section h-screen flex items-center justify-center">
+    <section className="relative page-section min-h-fit flex items-center justify-center">
       <div
         className="relative w-full h-full rounded-lg overflow-hidden max-h-[90vh] "
         
@@ -44,8 +44,8 @@ function Pathologies() {
     className="md:flex-1 relative  flex flex-col items-center gap-3 xl:gap-5 p-3 xl:p-6 bg-black-05 backdrop-blur-sm rounded-lg text-center md:text-start md:items-start order-2 md:order-none"
  
   >
-    <h1 className="text-black text-2xl lg:text-3xl xl:text-4xl font-semibold">
-      Research-driven clarity, <br />
+    <h1 className="text-black text-justify  text-2xl lg:text-3xl xl:text-4xl font-semibold">
+      Research-driven clarity <br />
       on chronic complexity
     </h1>
     <p className="text-black-75 text-sm lg:text-base xl:text-lg">
@@ -68,9 +68,8 @@ function Pathologies() {
         <FaWhatsapp className="text-xl md:text-3xl" />
       </a>
     </div>
-  </div>
-
-        <ul className="absolute left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 whitespace-nowrap list-none flex flex-col gap-3 bottom-3 sm:bottom-8 md:bottom-10 md:right-10 xl:text-xl">
+     <div className="flex items-center pt-32">
+    <ul className="absolute left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 whitespace-nowrap list-none flex flex-col gap-3 bottom-3 sm:bottom-8 md:bottom-10 md:right-10 xl:text-xl">
           <li className="flex items-center gap-2 font-medium">
             <span className="text-3xl w-8 h-8 border border-black rounded-full flex items-center justify-center">
               +
@@ -90,7 +89,11 @@ function Pathologies() {
             Spiritual Well-being
           </li>
         </ul>
-      </div>
+  </div>
+  </div>
+        
+        </div>
+      
     </section>
   );
 }

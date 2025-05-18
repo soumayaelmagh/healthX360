@@ -3,7 +3,7 @@ import framework from "@/assets/images/framework.svg";
 
 function SuccessStories() {
   return (
-    <section className="w-full h-auto min-h-screen relative page-section sec-container flex flex-col items-center gap-5 md:gap-10 text-center">
+    <section className="w-full h-auto min-h-fit relative page-section sec-container flex flex-col items-center gap-5 md:gap-10 text-center">
       <h1 className="text-center text-3xl md:text-5xl xl:text-7xl font-semibold">
       Our framework in action
       </h1>
@@ -41,7 +41,6 @@ function SuccessStories() {
           </p>
         </li>
       </ul>
-      
       <Image
         width={50}
         height={50}
