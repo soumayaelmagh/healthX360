@@ -43,9 +43,11 @@ function Framework() {
               src={img38}
               className="framework-symbols"
             ></Image>
+             <div className="pr-12">
             <h1 className="font-semibold text-base  lg:text-2xl xl:text-3xl text-antiflash">
             Integrated Pain Research
             </h1>
+            </div>
           </a>
         </li>
         <li className="framework-item">

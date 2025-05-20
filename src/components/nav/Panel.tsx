@@ -70,6 +70,14 @@ function Panel() {
       >
         Religion and science
       </Link>
+      <Link
+        href="/blog"
+        onClick={() => {
+          dispatch(togglenav());
+        }}
+      >
+        Insight
+      </Link>
       <a
         href="https://healthx360.youcanbook.me/"
         className="blue-button lg:text-lg xl:text-xl"
