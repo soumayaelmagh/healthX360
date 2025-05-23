@@ -15,7 +15,7 @@ async function getAllPostsData(): Promise<ProcessedBlogPostListItem[]> {
 
 export default async function BlogIndexPage() {
   const allPostsData = await getAllPostsData();
-
+  
   return (
     // The RootLayout (app/layout.tsx) already provides Navbar, Footer, etc.
     <main >
