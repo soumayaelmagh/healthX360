@@ -1,10 +1,11 @@
 # .github/workflows/contentful_webhook.yml
 name: Contentful Webhook Trigger Build
 
-on:
-  repository_dispatch: # Allows triggering the workflow via an API call
-    types: [contentful-update] # A custom event type you define
 
+on:
+  repository_dispatch:
+    types: [contentful-update]
+  workflow_dispatch: # Allows manual triggering from GitHub UI
 jobs:
   trigger-redeploy:
     runs-on: ubuntu-latest
