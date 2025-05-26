@@ -4,7 +4,7 @@ on:
   schedule:
     # Adjust the schedule as needed. This example runs every 15 minutes.
     # See https://crontab.guru/ for cron syntax help.
-    - cron: '*/15 * * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch: # Allows manual triggering from the GitHub Actions UI for testing
 
 jobs:
