@@ -35,6 +35,8 @@ jobs:
           node-version: '18' # Or '20', or your preferred Node.js LTS version
           cache: 'npm' # Optional: cache npm dependencies if you install many
 
+     # ... (previous parts of the workflow file are fine) ...
+
       - name: Install dependencies for script
         # Install only if needed and not already in your project's devDependencies
         # Using --no-save to avoid modifying package-lock.json by this utility script
@@ -42,58 +44,56 @@ jobs:
 
       - name: Check for recent Contentful updates
         id: contentful_check # Give an ID to this step to access its outputs
-        run: |
-          # last_check_timestamp.txt stores the timestamp of the last known update from Contentful
-          # It defaults to a very old date if the file doesn't exist.
-          LAST_KNOWN_UPDATE_FROM_FILE=$(cat last_check_timestamp.txt 2>/dev/null || echo "1970-01-01T00:00:00Z")
-          echo "Last known update timestamp from file: $LAST_KNOWN_UPDATE_FROM_FILE"
+        # THE 'run:' BLOCK MUST BE INDENTED TO THE SAME LEVEL AS 'id:' for this step
+        run: |  # <--- THIS LINE AND EVERYTHING BELOW IT IN THIS SCRIPT
+            # last_check_timestamp.txt stores the timestamp of the last known update from Contentful
+            # It defaults to a very old date if the file doesn't exist.
+            LAST_KNOWN_UPDATE_FROM_FILE=$(cat last_check_timestamp.txt 2>/dev/null || echo "1970-01-01T00:00:00Z")
+            echo "Last known update timestamp from file: $LAST_KNOWN_UPDATE_FROM_FILE"
 
-          # Node.js script to query Contentful
-          # This script will output 'has_new_updates=true' or 'has_new_updates=false'
-          # and 'latest_update_timestamp=YYYY-MM-DDTHH:MM:SSZ'
-          node -e "
-            const contentful = require('contentful');
-            const { isAfter, parseISO, formatISO } = require('date-fns');
+            # Node.js script to query Contentful
+            node -e "
+              const fs = require('fs'); // <--- REQUIRED for GITHUB_OUTPUT
+              const contentful = require('contentful');
+              const { isAfter, parseISO, formatISO } = require('date-fns');
 
-            const client = contentful.createClient({
-              space: process.env.CONTENTFUL_SPACE_ID,
-              accessToken: process.env.CONTENTFUL_DELIVERY_TOKEN,
-              environment: process.env.CONTENTFUL_ENVIRONMENT || 'master',
-            });
+              const client = contentful.createClient({
+                space: process.env.CONTENTFUL_SPACE_ID,
+                accessToken: process.env.CONTENTFUL_DELIVERY_TOKEN,
+                environment: process.env.CONTENTFUL_ENVIRONMENT || 'master',
+              });
 
-            let currentLatestUpdateTimestamp = '$LAST_KNOWN_UPDATE_FROM_FILE';
-            let newUpdatesFound = false;
+              let currentLatestUpdateTimestamp = '$LAST_KNOWN_UPDATE_FROM_FILE';
+              let newUpdatesFound = false;
 
-            async function checkForUpdates(contentType) {
-              try {
-                const response = await client.getEntries({
-                  content_type: contentType, // Optional: filter by content type if needed
-                  'sys.updatedAt[gt]': '$LAST_KNOWN_UPDATE_FROM_FILE',
-                  order: '-sys.updatedAt',
-                  limit: 20 // Check a reasonable number of recent entries
-                });
-
-                if (response.items.length > 0) {
-                  console.log(\`Found \${response.items.length} updated entries (\${contentType || 'any type'}) since $LAST_KNOWN_UPDATE_FROM_FILE\`);
-                  response.items.forEach(item => {
-                     console.log(\`- \${item.sys.id} (\${item.sys.contentType.sys.id}) updated at \${item.sys.updatedAt}\`);
-                     if (isAfter(parseISO(item.sys.updatedAt), parseISO(currentLatestUpdateTimestamp))) {
-                       currentLatestUpdateTimestamp = item.sys.updatedAt;
-                     }
-                  });
-                  newUpdatesFound = true;
-                }
-              } catch (error) {
-                console.error(\`Error fetching entries (\${contentType || 'any type'}) from Contentful:\`, error.message);
-                // Decide if you want to exit or continue if one content type fails
-              }
-            }
-            
-            async function checkAssets() {
-               try {
-                  const response = await client.getAssets({
+              async function checkForUpdates(contentType) {
+                try {
+                  const response = await client.getEntries({
+                    content_type: contentType,
                     'sys.updatedAt[gt]': '$LAST_KNOWN_UPDATE_FROM_FILE',
                     order: '-sys.updatedAt',
+                    limit: 20
+                  });
+                  if (response.items.length > 0) {
+                    console.log(\`Found \${response.items.length} updated entries (\${contentType || 'any type'}) since $LAST_KNOWN_UPDATE_FROM_FILE\`);
+                    response.items.forEach(item => {
+                       console.log(\`- \${item.sys.id} (\${item.sys.contentType.sys.id}) updated at \${item.sys.updatedAt}\`);
+                       if (isAfter(parseISO(item.sys.updatedAt), parseISO(currentLatestUpdateTimestamp))) {
+                         currentLatestUpdateTimestamp = item.sys.updatedAt;
+                       }
+                    });
+                    newUpdatesFound = true;
+                  }
+                } catch (error) {
+                  console.error(\`Error fetching entries (\${contentType || 'any type'}) from Contentful:\`, error.message);
+                }
+              }
+              
+              async function checkAssets() {
+                try {
+                  const response = await client.getAssets({
+                    'sys.updatedAt[gt]': '$LAST_KNOWN_UPDATE_FROM_FILE',
+                    order: '-sys.updatedT',
                     limit: 20
                   });
                   if (response.items.length > 0) {
@@ -106,57 +106,46 @@ jobs:
                     });
                     newUpdatesFound = true;
                   }
-               } catch (error) {
+                } catch (error) {
                   console.error('Error fetching assets from Contentful:', error.message);
-               }
-            }
+                }
+              }
 
-            async function runChecks() {
-              // Add specific content types if you only care about certain ones
-              // await checkForUpdates('blogPost'); 
-              // await checkForUpdates('anotherContentType');
-              // Or check all entries (might be less efficient if you have many types)
-              await checkForUpdates(); // Checks all entries if contentType is not specified
-              await checkAssets();
+              async function runChecks() {
+                await checkForUpdates(); // Check all entries
+                await checkAssets();
 
-              console.log(\`::set-output name=has_new_updates::\${newUpdatesFound}\`);
-              // Ensure the timestamp is always updated to the latest check, even if it's the same as before,
-              // or specifically to currentLatestUpdateTimestamp if new updates were found.
-              // If no new updates, currentLatestUpdateTimestamp will be the same as LAST_KNOWN_UPDATE_FROM_FILE
-              console.log(\`::set-output name=latest_update_timestamp::\${formatISO(parseISO(currentLatestUpdateTimestamp))}\`);
-            }
-            runChecks();
-          "
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, \`has_new_updates=\${newUpdatesFound}\n\`);
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, \`latest_update_timestamp=\${formatISO(parseISO(currentLatestUpdateTimestamp))}\n\`);
+              }
+              runChecks().catch(err => { console.error('Error in runChecks:', err); process.exit(1); });
+            " # End of the node -e script string
 
-               - name: Commit and Push if changes found
-            if: steps.contentful_check.outputs.has_new_updates == 'true'
-            env:
-              GH_TOKEN: ${{ secrets.PAT_FOR_COMMIT }} # Changed to GH_TOKEN to avoid conflict with default GITHUB_TOKEN
-              GITHUB_USER: 'GitHub Actions Bot' # Or your bot's GitHub username if it has one
-            run: |
-              echo "New Contentful updates detected. Most recent update was at: ${{ steps.contentful_check.outputs.latest_update_timestamp }}"
-              echo "${{ steps.contentful_check.outputs.latest_update_timestamp }}" > last_check_timestamp.txt
-              echo "Contentful deploy trigger: $(date -u +'%Y-%m-%dT%H:%M:%SZ')" > contentful_redeploy_trigger.txt
+      # THIS STEP MUST START WITH A HYPHEN AND BE AT THE SAME INDENTATION LEVEL AS THE PREVIOUS STEP
+      - name: Commit and Push if changes found 
+        if: steps.contentful_check.outputs.has_new_updates == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.PAT_FOR_COMMIT }} 
+          GITHUB_USER: 'GitHub Actions Bot'
+        run: |
+          echo "New Contentful updates detected. Most recent update was at: ${{ steps.contentful_check.outputs.latest_update_timestamp }}"
+          echo "${{ steps.contentful_check.outputs.latest_update_timestamp }}" > last_check_timestamp.txt
+          echo "Contentful deploy trigger: $(date -u +'%Y-%m-%dT%H:%M:%SZ')" > contentful_redeploy_trigger.txt
 
-              git config --global user.name "${GITHUB_USER}"
-              git config --global user.email "${GITHUB_USER_EMAIL:-github-actions-bot@users.noreply.github.com}" # Use env var or default
-              
-              git add last_check_timestamp.txt contentful_redeploy_trigger.txt
-              
-              # Check if there are actual changes staged for commit
-              if ! git diff --staged --quiet; then
-                git commit -m "chore: Contentful update at ${{ steps.contentful_check.outputs.latest_update_timestamp }}, triggering site redeploy [skip ci]"
-                
-                # Modify the remote URL to include the PAT for authentication
-                # GITHUB_REPOSITORY is a default env var like 'owner/repo'
-                git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-                
-                # Push to the branch the workflow is running on (e.g., main)
-                git push origin HEAD:${{ github.ref_name }} 
-                echo "Changes committed and pushed."
-              else
-                echo "No file changes to commit, but Contentful update was detected."
-              fi
+          git config --global user.name "${GITHUB_USER}"
+          git config --global user.email "${GITHUB_USER_EMAIL:-github-actions-bot@users.noreply.github.com}" 
+          
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          
+          git add last_check_timestamp.txt contentful_redeploy_trigger.txt
+          
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: Contentful update at ${{ steps.contentful_check.outputs.latest_update_timestamp }}, triggering site redeploy [skip ci]"
+            git push origin HEAD:${{ github.ref_name }} 
+            echo "Changes committed and pushed."
+          else
+            echo "No file changes to commit, but Contentful update was detected."
+          fi
 
       - name: No new Contentful updates
         if: steps.contentful_check.outputs.has_new_updates == 'false'
