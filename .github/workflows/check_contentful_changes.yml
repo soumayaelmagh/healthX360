@@ -128,40 +128,35 @@ jobs:
             runChecks();
           "
 
-      - name: Commit and Push if changes found
-        # This step runs only if the 'contentful_check' step outputted 'has_new_updates=true'
-        if: steps.contentful_check.outputs.has_new_updates == 'true'
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_FOR_COMMIT }} # Use the PAT for committing
-        run: |
-          echo "New Contentful updates detected. Most recent update was at: ${{ steps.contentful_check.outputs.latest_update_timestamp }}"
-          
-          # Update the timestamp file with the latest update time from Contentful
-          echo "${{ steps.contentful_check.outputs.latest_update_timestamp }}" > last_check_timestamp.txt
-          
-          # Create or update a dummy file to ensure a commit if last_check_timestamp.txt 
-          # content itself didn't change (e.g., multiple runs detect the same latest update before a new one)
-          # but we still need to signify that an update occurred for App Platform.
-          echo "Contentful deploy trigger: $(date -u +'%Y-%m-%dT%H:%M:%SZ')" > contentful_redeploy_trigger.txt
+               - name: Commit and Push if changes found
+            if: steps.contentful_check.outputs.has_new_updates == 'true'
+            env:
+              GH_TOKEN: ${{ secrets.PAT_FOR_COMMIT }} # Changed to GH_TOKEN to avoid conflict with default GITHUB_TOKEN
+              GITHUB_USER: 'GitHub Actions Bot' # Or your bot's GitHub username if it has one
+            run: |
+              echo "New Contentful updates detected. Most recent update was at: ${{ steps.contentful_check.outputs.latest_update_timestamp }}"
+              echo "${{ steps.contentful_check.outputs.latest_update_timestamp }}" > last_check_timestamp.txt
+              echo "Contentful deploy trigger: $(date -u +'%Y-%m-%dT%H:%M:%SZ')" > contentful_redeploy_trigger.txt
 
-          git config --global user.name 'GitHub Actions Bot'
-          git config --global user.email 'github-actions-bot@users.noreply.github.com' # Recommended email
-          
-          git add last_check_timestamp.txt contentful_redeploy_trigger.txt
-          
-          # Check if there are actual changes staged for commit
-          if ! git diff --staged --quiet; then
-            git commit -m "chore: Contentful update detected at ${{ steps.contentful_check.outputs.latest_update_timestamp }}, triggering site redeploy [skip ci]"
-            # The GITHUB_TOKEN (PAT_FOR_COMMIT) will be used by git push implicitly if origin is HTTPS
-            # Or explicitly configure if needed: git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-            git push origin HEAD:${{ github.ref_name }} # Push to the current branch
-            echo "Changes committed and pushed."
-          else
-            echo "No file changes to commit, but Contentful update was detected." 
-            # This case might happen if the latest_update_timestamp hasn't changed from the file
-            # but newUpdatesFound was true (e.g. an older item was updated again).
-            # The contentful_redeploy_trigger.txt should ensure a commit.
-          fi
+              git config --global user.name "${GITHUB_USER}"
+              git config --global user.email "${GITHUB_USER_EMAIL:-github-actions-bot@users.noreply.github.com}" # Use env var or default
+              
+              git add last_check_timestamp.txt contentful_redeploy_trigger.txt
+              
+              # Check if there are actual changes staged for commit
+              if ! git diff --staged --quiet; then
+                git commit -m "chore: Contentful update at ${{ steps.contentful_check.outputs.latest_update_timestamp }}, triggering site redeploy [skip ci]"
+                
+                # Modify the remote URL to include the PAT for authentication
+                # GITHUB_REPOSITORY is a default env var like 'owner/repo'
+                git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+                
+                # Push to the branch the workflow is running on (e.g., main)
+                git push origin HEAD:${{ github.ref_name }} 
+                echo "Changes committed and pushed."
+              else
+                echo "No file changes to commit, but Contentful update was detected."
+              fi
 
       - name: No new Contentful updates
         if: steps.contentful_check.outputs.has_new_updates == 'false'
