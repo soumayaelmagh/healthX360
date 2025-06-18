@@ -1,1 +1,1 @@
-Contentful deploy trigger: 2025-06-18T03:57:01Z
+Contentful deploy trigger: 2025-06-18T04:26:23Z
