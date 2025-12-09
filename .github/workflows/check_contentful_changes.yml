@@ -2,9 +2,10 @@ name: Check Contentful for Updates and Trigger Deploy
 
 on:
   schedule:
-    # Adjust the schedule as needed. This example runs every 15 minutes.
-    # See https://crontab.guru/ for cron syntax help.
-    - cron: '0 0 * * *'
+    # Daily at 12:00 UTC (13:00 GMT+1) during the temporary window
+    - cron: '0 12 * * *'
+    # Weekly (Monday) at 12:00 UTC (13:00 GMT+1) after the temporary window
+    - cron: '0 12 * * 1'
   workflow_dispatch: # Allows manual triggering from the GitHub Actions UI for testing
 
 jobs:
@@ -15,11 +16,45 @@ jobs:
       CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
       CONTENTFUL_DELIVERY_TOKEN: ${{ secrets.CONTENTFUL_DELIVERY_TOKEN }}
       CONTENTFUL_ENVIRONMENT: 'master' # Or your specific Contentful environment ID
+      # Set the UTC date (YYYY-MM-DD) when the daily runs should stop (e.g., two weeks from now).
+      DAILY_WINDOW_END: '2025-12-21'
       # Timezone for the 'date' command used in the commit message/trigger file
       TZ: 'UTC' 
 
     steps:
+      - name: Determine if daily run is in temporary window
+        id: schedule_window
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "run_checks=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Allow the weekly schedule unconditionally
+          if [ "${{ github.event.schedule }}" != "0 12 * * *" ]; then
+            echo "run_checks=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          END_DATE="${DAILY_WINDOW_END}"
+          if [ -z "$END_DATE" ]; then
+            echo "DAILY_WINDOW_END not set; skipping daily run."
+            echo "run_checks=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          NOW_UTC=$(date -u +"%Y-%m-%d")
+          if [ "$(date -u -d "$NOW_UTC" +%s)" -gt "$(date -u -d "$END_DATE" +%s)" ]; then
+            echo "Daily window ended on $END_DATE; skipping daily run."
+            echo "run_checks=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Daily window active through $END_DATE; running checks."
+          echo "run_checks=true" >> "$GITHUB_OUTPUT"
+
       - name: Checkout code
+        if: steps.schedule_window.outputs.run_checks == 'true'
         uses: actions/checkout@v4 # Use latest major version
         with:
           # This token is used by the checkout action if needed, 
@@ -30,6 +65,7 @@ jobs:
           persist-credentials: false # Recommended if using a PAT for subsequent git operations
 
       - name: Setup Node.js
+        if: steps.schedule_window.outputs.run_checks == 'true'
         uses: actions/setup-node@v4 # Use latest major version
         with:
           node-version: '18' # Or '20', or your preferred Node.js LTS version
@@ -38,11 +74,13 @@ jobs:
      # ... (previous parts of the workflow file are fine) ...
 
       - name: Install dependencies for script
+        if: steps.schedule_window.outputs.run_checks == 'true'
         # Install only if needed and not already in your project's devDependencies
         # Using --no-save to avoid modifying package-lock.json by this utility script
         run: npm install contentful date-fns --no-save 
 
       - name: Check for recent Contentful updates
+        if: steps.schedule_window.outputs.run_checks == 'true'
         id: contentful_check # Give an ID to this step to access its outputs
         # THE 'run:' BLOCK MUST BE INDENTED TO THE SAME LEVEL AS 'id:' for this step
         run: |  # <--- THIS LINE AND EVERYTHING BELOW IT IN THIS SCRIPT
@@ -123,7 +161,7 @@ jobs:
 
       # THIS STEP MUST START WITH A HYPHEN AND BE AT THE SAME INDENTATION LEVEL AS THE PREVIOUS STEP
       - name: Commit and Push if changes found 
-        if: steps.contentful_check.outputs.has_new_updates == 'true'
+        if: steps.schedule_window.outputs.run_checks == 'true' && steps.contentful_check.outputs.has_new_updates == 'true'
         env:
           GH_TOKEN: ${{ secrets.PAT_FOR_COMMIT }} 
           GITHUB_USER: 'GitHub Actions Bot'
@@ -148,5 +186,5 @@ jobs:
           fi
 
       - name: No new Contentful updates
-        if: steps.contentful_check.outputs.has_new_updates == 'false'
+        if: steps.schedule_window.outputs.run_checks == 'true' && steps.contentful_check.outputs.has_new_updates == 'false'
         run: echo "No new Contentful updates found to trigger redeploy."
