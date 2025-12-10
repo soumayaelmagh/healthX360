@@ -2,10 +2,10 @@ name: Check Contentful for Updates and Trigger Deploy
 
 on:
   schedule:
-    # Daily at 12:00 UTC (13:00 GMT+1) during the temporary window
+    # Daily at 12:00 UTC (14:00 Europe/Madrid during DST) during the temporary window
     - cron: '0 12 * * *'
-    # Weekly (Monday) at 12:00 UTC (13:00 GMT+1) after the temporary window
-    - cron: '0 12 * * 1'
+    # Daily at 13:00 UTC (14:00 Europe/Madrid outside DST) during the temporary window
+    - cron: '0 13 * * *'
   workflow_dispatch: # Allows manual triggering from the GitHub Actions UI for testing
 
 jobs:
@@ -17,12 +17,12 @@ jobs:
       CONTENTFUL_DELIVERY_TOKEN: ${{ secrets.CONTENTFUL_DELIVERY_TOKEN }}
       CONTENTFUL_ENVIRONMENT: 'master' # Or your specific Contentful environment ID
       # Set the UTC date (YYYY-MM-DD) when the daily runs should stop (e.g., two weeks from now).
-      DAILY_WINDOW_END: '2025-12-21'
+      DAILY_WINDOW_END: '2025-12-23'
       # Timezone for the 'date' command used in the commit message/trigger file
       TZ: 'UTC' 
 
     steps:
-      - name: Determine if daily run is in temporary window
+      - name: Determine if run should execute (local 14:00 Europe/Madrid)
         id: schedule_window
         run: |
           if [ "${{ github.event_name }}" != "schedule" ]; then
@@ -30,27 +30,38 @@ jobs:
             exit 0
           fi
 
-          # Allow the weekly schedule unconditionally
-          if [ "${{ github.event.schedule }}" != "0 12 * * *" ]; then
+          SCHEDULE="${{ github.event.schedule }}"
+          TODAY_UTC=$(date -u +"%Y-%m-%d")
+          END_DATE="${DAILY_WINDOW_END}"
+
+          # Run only when it's 14:00 in Europe/Madrid (handles DST changes)
+          LOCAL_HOUR=$(TZ=Europe/Madrid date +"%H")
+          if [ "$LOCAL_HOUR" != "14" ]; then
+            echo "Skipping: current local hour in Europe/Madrid is $LOCAL_HOUR, not 14."
+            echo "run_checks=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Daily schedules: respect the temporary daily window
+          if [ "$SCHEDULE" = "0 12 * * *" ] || [ "$SCHEDULE" = "0 13 * * *" ]; then
+            if [ -z "$END_DATE" ]; then
+              echo "DAILY_WINDOW_END not set; skipping daily run."
+              echo "run_checks=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            if [ "$(date -u -d "$TODAY_UTC" +%s)" -gt "$(date -u -d "$END_DATE" +%s)" ]; then
+              echo "Daily window ended on $END_DATE; skipping daily run."
+              echo "run_checks=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "Daily window active through $END_DATE; running checks."
             echo "run_checks=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          END_DATE="${DAILY_WINDOW_END}"
-          if [ -z "$END_DATE" ]; then
-            echo "DAILY_WINDOW_END not set; skipping daily run."
-            echo "run_checks=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          NOW_UTC=$(date -u +"%Y-%m-%d")
-          if [ "$(date -u -d "$NOW_UTC" +%s)" -gt "$(date -u -d "$END_DATE" +%s)" ]; then
-            echo "Daily window ended on $END_DATE; skipping daily run."
-            echo "run_checks=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          echo "Daily window active through $END_DATE; running checks."
+          # Fallback: if schedule value is unexpected, allow run
+          echo "Unrecognized schedule value ($SCHEDULE); defaulting to run."
           echo "run_checks=true" >> "$GITHUB_OUTPUT"
 
       - name: Checkout code
